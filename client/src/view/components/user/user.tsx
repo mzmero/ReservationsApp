@@ -147,12 +147,6 @@ function User() {
                 {addRestaurant}
                 {addRestaurateur}
                 {restaurateur}
-                <MenuItem>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Settings
-                </MenuItem>
                 <MenuItem onClick={handleLogOut}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

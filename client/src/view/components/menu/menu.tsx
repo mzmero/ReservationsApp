@@ -31,7 +31,7 @@ function Menu() {
     const [modalSearchIsOpen, setSearchModal] = useState(false);
     const [modalSignInsOpen, setSignINModal] = useState(false);
     const [modalSignUpModal, setSignUpModal] = useState(false);
-    const [navbarindex, setNavbarindex] = useState(1);
+    const [navbarindex, setNavbarindex] = useState(500);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [loginState, setLoginState] = useState({})
     const [sigupState, setSigupnState] = useState({})
@@ -41,6 +41,9 @@ function Menu() {
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(checkUser)
     const isSignedup = useAppSelector(signUpState)
+    const customStyles = {
+        overlay: { zIndex: 1000 }
+    };
     useEffect(() => {
         if (isLoggedIn && modalSignInsOpen) {
             setTextAlert('You have logged in successfully!!')
@@ -72,7 +75,7 @@ function Menu() {
     }
     function openSignUpModal(bool: boolean) {
         if (bool === false) {
-            setNavbarindex(1)
+            setNavbarindex(500)
             if (emailErrorSignUp)
                 setEmailErrorSignUp(false)
             if (isSignedup === 'failed')
@@ -198,7 +201,7 @@ function Menu() {
                     <img onClick={() => openSearchModal(true)} className="navbar__right__search" src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png" alt="search_icon" />
                 </div>
             </div>
-            <Modal className="Modal" isOpen={modalSearchIsOpen} onRequestClose={() => openSearchModal(false)}>
+            <Modal className="Modal" style={customStyles} isOpen={modalSearchIsOpen} onRequestClose={() => openSearchModal(false)}>
                 {/* <div className="Modal__header">
                     <button className="Modal__header__closebtn" onClick={() => openSearchModal(false)}></button>
                 </div> */}
@@ -206,7 +209,7 @@ function Menu() {
                     <Search />
                 </div>
             </Modal>
-            <Modal className="signModal" isOpen={modalSignInsOpen} onRequestClose={() => openSignInModal(false)}>
+            <Modal className="signModal" style={customStyles} isOpen={modalSignInsOpen} onRequestClose={() => openSignInModal(false)}>
                 <div className="signModal__content">
                     <div className="signModal__content__left">
 
@@ -230,7 +233,7 @@ function Menu() {
                     </div>
                 </div>
             </Modal>
-            <Modal className="signModal" isOpen={modalSignUpModal} onRequestClose={() => openSignUpModal(false)}>
+            <Modal className="signModal" style={customStyles} isOpen={modalSignUpModal} onRequestClose={() => openSignUpModal(false)}>
                 <div className="signModal__content">
                     <div className="signModal__content__leftUp">
 

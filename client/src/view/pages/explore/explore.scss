@@ -151,4 +151,23 @@
     }
 }
 
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+    bottom: 0 !important;
+}
+
 @media only screen and (max-width: 800px) {}
+
+@media screen and (max-width: 400px) {
+    // .swiper-container {
+    //     width: 200px !important;
+    // }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none !important;
+
+    }
+}

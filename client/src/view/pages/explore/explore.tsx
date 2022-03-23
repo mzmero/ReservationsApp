@@ -9,8 +9,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { getFamousRestaurants, fetchFamousRestaurants, getRegions, fetchRegion } from '../../../app/reducers/resterauntsReducer'
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Pagination, Navigation } from "swiper";
 
 import './explore.scss'
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import Grid from '@mui/material/Grid';
 
 function Explore() {
@@ -18,7 +23,7 @@ function Explore() {
     const famousRestaurants = useAppSelector(getFamousRestaurants)
     const arrOfRegions = useAppSelector(getRegions)
     const [trendingRestaurants, setTrendingRestaurant] = useState([{ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
-    const [seaRestaurants, setSeaRestaurant] = useState([{ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
+    const [seaRestaurants, setSeaRestaurant] = useState([{ id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
     const [userRegion, setUserRegion] = useState('Israel');
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -90,13 +95,50 @@ function Explore() {
                         <div className="exploremain__popular__view">View All</div>
                     </header>
                     <div className="exploremain__popular__grid">
-                        <Grid container spacing={{ xs: 2, md: 3 }}>
-                            {famousRestaurants.slice(0, 4).map((rest, index) => {
-                                return (<Grid item xs={12} sm={6} md={3} key={index}>
-                                    <Card key={index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
-                                </Grid>)
+                        <Swiper
+                            slidesPerView={4}
+                            spaceBetween={0}
+                            slidesPerGroup={2}
+                            loop={false}
+                            loopFillGroupWithBlank={false}
+                            pagination={{
+                                clickable: true
+                            }}
+                            navigation={true}
+                            modules={[Pagination, Navigation]}
+                            className="mySwiper"
+                            //centeredSlides={true}
+                            centeredSlidesBounds={true}
+                            breakpoints={{
+                                320: {
+                                    slidesPerView: 1,
+                                    spaceBetween: 10,
+                                    slidesPerGroup: 1,
+
+                                },
+                                600: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20,
+                                    slidesPerGroup: 2
+                                },
+                                // when window width is >= 480px
+                                800: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 30
+                                },
+                                // when window width is >= 640px
+                                1200: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 40
+                                }
+                            }}
+                        >
+                            {famousRestaurants.map((rest, index) => {
+                                return (
+                                    <SwiperSlide key={(index + 1) * 1000}><Card key={rest.id + " " + index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card></SwiperSlide>
+                                )
                             })}
-                        </Grid>
+                        </Swiper>
                     </div>
                 </div>
                 <div className="exploremain__popular">
@@ -106,7 +148,7 @@ function Explore() {
                     </header>
                     <div className="exploremain__popular__grid">
                         {trendingRestaurants.map((rest, index) => {
-                            return <Card key={index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                            return <Card key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                         })}
                     </div>
                 </div>
@@ -117,7 +159,7 @@ function Explore() {
                     </header>
                     <div className="exploremain__popular__grid">
                         {seaRestaurants.map((rest, index) => {
-                            return <Card key={index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                            return <Card key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                         })}
                     </div>
                 </div>
@@ -131,7 +173,7 @@ function Explore() {
                 </div>
             </div>
             <Footer></Footer>
-        </div>
+        </div >
     );
 }
 
