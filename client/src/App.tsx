@@ -36,7 +36,7 @@ function App() {
         <Route path="Maps" element={<Maps />} />
         <Route path="Admin" element={<Admin />} />
         <Route path="Restaurateur" element={<Restaurateur />} >
-          <Route path=":RestaurantId" element={<RestaurateurDashboard />} />
+          <Route path=":RestaurantId/:RestaurantName" element={<RestaurateurDashboard />} />
         </Route>
         <Route path="AddRestaurant" element={<AddRestaurant />} />
         <Route path="AddRestaurateur" element={<AddRestaurateur />} />

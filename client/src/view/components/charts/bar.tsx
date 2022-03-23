@@ -19,19 +19,18 @@ ChartJS.register(
 );
 interface BarProps {
     labels: Array<string>;
-    data: Array<number>;
+    data: Array<number | undefined>;
     title: string;
 }
-function BarChart() {
+function BarChart(props: BarProps) {
     const state = {
-        labels: ['January', 'February', 'March',
-            'April', 'May'],
+        labels: props.labels,
         datasets: [
             {
-                label: 'Rainfall',
+                label: "Reservations",
                 borderWidth: 2,
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                data: [65, 59, 80, 81, 56]
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                data: props.data
             }
         ]
     }
@@ -42,11 +41,11 @@ function BarChart() {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Average Rainfall per month',
+                        text: props.title,
                     },
                     legend: {
                         display: true,
-                        position: 'right'
+                        position: 'top'
                     }
                 }
             }}

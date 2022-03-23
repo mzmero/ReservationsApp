@@ -26,7 +26,7 @@ db.once("open", () => {
 
 //routes
 
-const restaurantsRoute = require('./routes/restaurantroute')
+const restaurantsRoute = require('./routes/restaurantRoute')
 app.use('/restaurants', restaurantsRoute);
 
 const userRoute = require('./routes/userRoute')

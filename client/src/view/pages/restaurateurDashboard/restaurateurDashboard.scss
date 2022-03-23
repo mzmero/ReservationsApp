@@ -1,0 +1,24 @@
+.reservationsDashboards {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    &__high {}
+
+    &__low {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .reservationsDashboards {
+        &__high {
+            display: none;
+        }
+
+        &__low {
+            display: block;
+        }
+    }
+}

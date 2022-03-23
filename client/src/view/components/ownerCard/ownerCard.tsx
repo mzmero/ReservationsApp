@@ -17,7 +17,7 @@ interface cardProp {
 function OwnerCard(props: cardProp) {
 
     return (
-        <Link to={`${props.id}`}>
+        <Link to={`${props.id}/${props.name}`}>
             <div className="ownerCard">
                 <div className="ownerCard__image" style={{ backgroundImage: `url(${props.image})` }}></div>
                 <div className="ownerCard__main">
