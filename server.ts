@@ -1,7 +1,3 @@
-import Resteraunts from './model/schema/restaurantsModel'
-import Users from "./model/schema/userModel";
-import Favorites from './model/schema/favoritesModel'
-import Reservations from './model/schema/reservationsmModel';
 
 const express = require('express');
 const cookieParser = require('cookie-parser')
