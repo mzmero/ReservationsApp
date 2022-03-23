@@ -26,16 +26,16 @@ db.once("open", () => {
 
 //routes
 
-const restaurantsRoute = require('./routes/restaurantRoute')
+const restaurantsRoute = require('/routes/restaurantRoute')
 app.use('/restaurants', restaurantsRoute);
 
-const userRoute = require('./routes/userRoute')
+const userRoute = require('/routes/userRoute')
 app.use('/users', userRoute);
 
-const favoriteRoute = require('./routes/favoriteRoute')
+const favoriteRoute = require('/routes/favoriteRoute')
 app.use('/favorites', favoriteRoute);
 
-const reservationRoute = require('./routes/reservationsRoute')
+const reservationRoute = require('/routes/reservationsRoute')
 app.use('/reservations', reservationRoute);
 
 
