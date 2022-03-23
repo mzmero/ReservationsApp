@@ -44,6 +44,6 @@ app.use('/reservations', reservationRoute);
 
 
 //listen
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Example app listening on port ${port}`)
 })
