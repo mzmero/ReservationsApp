@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "db": "json-server --watch db.json --port 3004",
-    "start": "ts-node server.ts"
+    "start": "ts-node server.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
