@@ -1,4 +1,7 @@
 {
+    "include" : [
+        "*.ts"   /* Include every ts file in source folder */
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "esModuleInterop": true,
