@@ -16,7 +16,7 @@ import './explore.scss'
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Grid from '@mui/material/Grid';
+import { useNavigate } from 'react-router-dom';
 
 function Explore() {
     const dispatch = useAppDispatch()
@@ -26,6 +26,7 @@ function Explore() {
     const [seaRestaurants, setSeaRestaurant] = useState([{ id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
     const [userRegion, setUserRegion] = useState('Israel');
     const [anchorEl, setAnchorEl] = useState(null);
+    const navigate = useNavigate();
     const open = Boolean(anchorEl);
     useEffect(() => {
         dispatch(fetchFamousRestaurants(userRegion))
@@ -92,7 +93,7 @@ function Explore() {
                 <div className="exploremain__popular">
                     <header>
                         <h2>Popular Restaurants in {userRegion}</h2>
-                        <div className="exploremain__popular__view">View All</div>
+                        <div className="exploremain__popular__view" onClick={() => { navigate('/viewAll', { state: { "data": famousRestaurants, "title": "famous" } }) }}>View All</div>
                     </header>
                     <div className="exploremain__popular__grid">
                         <Swiper
@@ -144,7 +145,7 @@ function Explore() {
                 <div className="exploremain__popular">
                     <header>
                         <h2>Trending Restaurants in {userRegion}</h2>
-                        <div className="exploremain__popular__view">View All</div>
+                        <div className="exploremain__popular__view" onClick={() => { navigate('/viewAll', { state: { "data": trendingRestaurants, "title": "trending" } }) }}>View All</div>
                     </header>
                     <div className="exploremain__popular__grid">
                         {trendingRestaurants.map((rest, index) => {

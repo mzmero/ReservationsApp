@@ -16,6 +16,7 @@ import AddRestaurant from './view/pages/addRestaurant/addRestaurant'
 import AddRestaurateur from './view/pages/addRestaurateur/addRestaurateur'
 import Profile from './view/pages/profile/profile'
 import RestaurateurDashboard from './view/pages/restaurateurDashboard/restaurateurDashboard';
+import ViewPage from './view/pages/viewPage/viewPage';
 import { useAppDispatch } from './app/hooks'
 import { getAuthentication } from './app/reducers/userReducer'
 
@@ -31,6 +32,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Explore />} />
+        <Route path="/viewAll" element={<ViewPage />} />
         <Route path="Reservations" element={<Reservation />} />
         <Route path="Favorite" element={<Favorite />} />
         <Route path="Maps" element={<Maps />} />
@@ -41,7 +43,7 @@ function App() {
         <Route path="AddRestaurant" element={<AddRestaurant />} />
         <Route path="AddRestaurateur" element={<AddRestaurateur />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/:RestaurantId" element={<Restaurant />} />
+        <Route path="/Restaurant/:RestaurantId" element={<Restaurant />} />
       </Routes>
     </BrowserRouter >
   );

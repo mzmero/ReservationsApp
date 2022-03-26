@@ -38,6 +38,9 @@ app.use('/favorites', favoriteRoute);
 const reservationRoute = require('./routes/reservationsRoute')
 app.use('/reservations', reservationRoute);
 
+app.get('/*', (req, res) => {
+    res.sendFile(__dirname + '/client/build/index.html');
+})
 
 //listen
 app.listen(process.env.PORT || port, () => {
