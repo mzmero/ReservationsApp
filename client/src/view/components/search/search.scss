@@ -26,6 +26,10 @@
             display: flex;
             justify-content: center;
 
+            form {
+                display: flex;
+            }
+
             &__a {
                 display: flex;
                 color: white;
@@ -77,6 +81,11 @@
     .searchDiv__bar__content {
         flex-direction: column;
         width: 80%;
+
+        form {
+            flex-direction: column;
+            display: flex;
+        }
 
         &__a {
             width: 100%;

@@ -17,14 +17,16 @@ import AddRestaurateur from './view/pages/addRestaurateur/addRestaurateur'
 import Profile from './view/pages/profile/profile'
 import RestaurateurDashboard from './view/pages/restaurateurDashboard/restaurateurDashboard';
 import ViewPage from './view/pages/viewPage/viewPage';
+import SearchPage from './view/pages/searchPage/searchPage'
+import { SearchResults } from './view/components/searchResults/searchResults';
 import { useAppDispatch } from './app/hooks'
 import { getAuthentication } from './app/reducers/userReducer'
 
 function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
-    async function fetchMyAuth() {
-      await dispatch(getAuthentication())
+    function fetchMyAuth() {
+      dispatch(getAuthentication())
     }
     fetchMyAuth()
   }, [])
@@ -44,6 +46,9 @@ function App() {
         <Route path="AddRestaurateur" element={<AddRestaurateur />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/Restaurant/:RestaurantId" element={<Restaurant />} />
+        <Route path="/search/" element={<SearchPage />} >
+          <Route path=":SearchString" element={<SearchResults />} />
+        </Route>
       </Routes>
     </BrowserRouter >
   );

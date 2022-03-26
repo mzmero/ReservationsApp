@@ -1,0 +1,71 @@
+.searchpage {
+    width: 100%;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        &__search {
+            margin-top: 3rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            background-image: url(https://blog-api.algolia.com/wp-content/uploads/2021/06/Search-Grader.png);
+            background-position: 80% 50%;
+            height: 15rem;
+
+            &__title {
+                margin-top: 1rem;
+                width: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-family: sans-serif;
+            }
+
+            form {
+                display: flex;
+                width: 50%;
+                //align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                margin-left: 1rem;
+
+            }
+
+            &__bar {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .searchpage {
+        &__content {
+            &__search {
+                background-image: none;
+                background-color: #36395a;
+                align-items: center;
+                width: 90%;
+
+                &__title {
+                    width: 100%;
+                }
+
+                form {
+                    width: 80%;
+                    margin-left: 0;
+                }
+            }
+
+        }
+    }
+}
