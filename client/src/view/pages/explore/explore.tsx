@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useNavigate } from 'react-router-dom';
+import { selectDefaultRegion, setUserRegion } from '../../../app/reducers/userReducer';
 
 function Explore() {
     const dispatch = useAppDispatch()
@@ -24,7 +25,7 @@ function Explore() {
     const arrOfRegions = useAppSelector(getRegions)
     const [trendingRestaurants, setTrendingRestaurant] = useState([{ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
     const [seaRestaurants, setSeaRestaurant] = useState([{ id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
-    const [userRegion, setUserRegion] = useState('Israel');
+    const userRegion = useAppSelector(selectDefaultRegion)
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
@@ -38,7 +39,7 @@ function Explore() {
     const handleClose = (e: any) => {
         setAnchorEl(null);
         if (Object.keys(e.currentTarget.dataset).length != 0) {
-            setUserRegion(e.target.dataset.myValue)
+            dispatch(setUserRegion(e.target.dataset.myValue))
             const newRegion = e.target.dataset.myValue
             dispatch(fetchFamousRestaurants(newRegion))
         }

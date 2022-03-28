@@ -11,6 +11,7 @@ interface userProb {
         phone: string;
         region: string;
     };
+    defaultRegion: string;
     userIsLogIn: boolean;
     status: 'idle' | 'loading' | 'complete' | 'failed';
     signUpStatus: 'idle' | 'loading' | 'failed';
@@ -18,6 +19,15 @@ interface userProb {
     updatePasswordStatus: 'idle' | 'loading' | 'failed' | 'completed';
 }
 
+function getDefaultRegion() {
+    const reg = localStorage.getItem('defaultRegion');
+    if (reg) {
+        return reg
+    } else {
+        return "Israel"
+    }
+
+}
 const initialState: userProb = {
     userinfo: {
         fName: " ",
@@ -25,8 +35,9 @@ const initialState: userProb = {
         email: "",
         type: "",
         phone: "",
-        region: "Israel",
+        region: "",
     },
+    defaultRegion: getDefaultRegion(),
     userIsLogIn: false,
     status: 'idle',
     signUpStatus: 'idle',
@@ -152,6 +163,10 @@ export const userReducer = createSlice({
         updateSignUpState: (state, action) => {
             state.signUpStatus = action.payload
         },
+        setUserRegion: (state, action) => {
+            state.defaultRegion = action.payload
+            localStorage.setItem("defaultRegion", action.payload)
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -218,7 +233,7 @@ export const userReducer = createSlice({
                         state.userinfo.fName = " ";
                         state.userinfo.lName = " ";
                         state.userinfo.type = " ";
-                        state.userinfo.region = "Israel"
+                        state.userinfo.region = ""
                         state.userIsLogIn = false;
                         state.status = 'idle';
                     }
@@ -240,6 +255,7 @@ export const userReducer = createSlice({
                         state.userinfo.fName = " ";
                         state.userinfo.lName = " ";
                         state.userinfo.type = " ";
+                        state.userinfo.region = " ";
                         state.userIsLogIn = false;
                     }
                 }
@@ -284,7 +300,7 @@ export const userReducer = createSlice({
 })
 
 
-export const { updateLogIn, updateSignUpState } = userReducer.actions
+export const { updateLogIn, updateSignUpState, setUserRegion } = userReducer.actions
 export const selectUser = (state: RootState) => state.user.userinfo
 export const selectUserState = (state: RootState) => state.user.status
 export const selecUserName = (state: RootState) => state.user.userinfo.fName + " " + state.user.userinfo.lName
@@ -292,4 +308,5 @@ export const checkUser = (state: RootState) => state.user.userIsLogIn
 export const checkType = (state: RootState) => state.user.userinfo.type
 export const signUpState = (state: RootState) => state.user.signUpStatus
 export const updatePasswordState = (state: RootState) => state.user.updatePasswordStatus
+export const selectDefaultRegion = (state: RootState) => state.user.defaultRegion
 export default userReducer.reducer;
