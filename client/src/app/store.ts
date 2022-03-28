@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from './reducers/userReducer'
-import restaurantReducer from './reducers/resterauntsReducer'
+import restaurantReducer from './reducers/restaurantsReducer'
 import reservationsReducer from './reducers/reservationsReducer'
 import favoriteReducer from './reducers/favoriteReducer'
 

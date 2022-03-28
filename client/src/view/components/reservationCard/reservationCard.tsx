@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './reservationCard.scss'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { getAllRestaurants } from '../../../app/reducers/resterauntsReducer'
+import { getAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import { cancelReservations, fetchUserReservations } from '../../../app/reducers/reservationsReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'

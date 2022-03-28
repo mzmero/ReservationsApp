@@ -6,7 +6,7 @@ import { display, width } from '@mui/system';
 import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer';
+import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer';
 import FoodCard from '../foodCard/foodCard';
 import RestaurantCard from '../restaurantCard/restaurantCard';
 import './searchResults.scss'

@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer';
+import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer';
 
 
 function SearchPage() {

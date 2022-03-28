@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../../components/footer/footer'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { getFavorites, fetchUserFavorite } from '../../../app/reducers/favoriteReducer'
-import { fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer'
+import { fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import Grid from '@mui/material/Grid';
 import FavoriteCard from '../../components/favoriteCard/favoriteCard'
 import { checkUser } from '../../../app/reducers/userReducer'

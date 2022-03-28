@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import './reservations.scss'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { fetchUserReservations, getUserReservations } from '../../../app/reducers/reservationsReducer'
-import { fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer'
+import { fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import Grid from '@mui/material/Grid';
 import { checkUser } from '../../../app/reducers/userReducer'
 

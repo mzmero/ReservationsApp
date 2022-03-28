@@ -16,7 +16,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
-import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer'
+import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import { addFavorite, fetchUserFavorite, deleteFavorite, getFavorites } from '../../../app/reducers/favoriteReducer'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import Chip from '@mui/material/Chip';

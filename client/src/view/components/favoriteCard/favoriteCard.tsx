@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import './favoriteCard.scss'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { getAllRestaurants } from '../../../app/reducers/resterauntsReducer'
+import { getAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
 import ReserveModal from '../reserveModal/reserveModal';

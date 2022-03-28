@@ -2,7 +2,7 @@ import './restaurateurDashboard.scss'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import BarChart from '../../components/charts/bar'
-import { getOwnerReserveData } from '../../../app/reducers/resterauntsReducer'
+import { getOwnerReserveData } from '../../../app/reducers/restaurantsReducer'
 import { useAppSelector } from '../../../app/hooks'
 
 function RestaurateurDashboard() {
