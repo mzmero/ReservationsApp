@@ -1,5 +1,8 @@
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
+import Switch from '@mui/material/Switch';
+import { display, width } from '@mui/system';
 import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
@@ -37,6 +40,22 @@ export const SearchResults = () => {
         setPageProps({ ...pageProps, "start": startIndex, "end": endIndex })
 
     }
+    function handleSwitch(e: any) {
+        if (e.target.checked) {
+            setPageProps({
+                ...pageProps, "data": pageProps.data.sort(function (a: any, b: any) {
+                    return a.food[0].price - b.food[0].price;
+                })
+            })
+        } else {
+            setPageProps({
+                ...pageProps, "data": pageProps.data.sort(function (a: any, b: any) {
+                    return b.food[0].price - a.food[0].price;
+                })
+            })
+        }
+
+    }
     useEffect(() => {
         if (location.state != null) {
             let { prop } = location.state as LocationState;
@@ -70,8 +89,11 @@ export const SearchResults = () => {
             setPageProps({ "numOfItems": numOfItems, "totalPages": totalPages, "data": result, "start": start, "end": end, "category": prop })
         }
     }, [SearchString, arrOfRestaurants, location.state])
+
     let component
+    let switcher
     if (pageProps.category == "restaurant") {
+        switcher = (<></>)
         component = (<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
             {pageProps.data.slice(pageProps.start, pageProps.end).map((rest: any, index: any) => (
                 <Grid item xs={12} sm={4} md={3} key={rest.id}>
@@ -87,12 +109,19 @@ export const SearchResults = () => {
                 </Grid>
             ))}
         </Grid>)
+        switcher = (<FormControlLabel sx={{ display: "flex", width: "100%", marginBottom: "1rem" }}
+            control={
+                <Switch defaultChecked={true} onChange={handleSwitch} name="jason" />
+            }
+            label="sort by low price"
+        />)
     }
     return (
         <div className="searchresults">
             <div className="searchresults__title">
-                <h2>Search Results for {SearchString}</h2>
+                <h2>Search Results for {SearchString} in {pageProps.category}</h2>
             </div>
+            {switcher}
             <div className="searchresults__results">
                 {component}
             </div>
