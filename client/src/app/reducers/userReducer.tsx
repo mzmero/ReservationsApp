@@ -15,6 +15,7 @@ interface userProb {
     userIsLogIn: boolean;
     status: 'idle' | 'loading' | 'complete' | 'failed';
     signUpStatus: 'idle' | 'loading' | 'failed';
+    signInStatus: 'idle' | 'loading' | 'failed';
     updateStatus: 'idle' | 'loading' | 'failed';
     updatePasswordStatus: 'idle' | 'loading' | 'failed' | 'completed';
 }
@@ -41,6 +42,7 @@ const initialState: userProb = {
     userIsLogIn: false,
     status: 'idle',
     signUpStatus: 'idle',
+    signInStatus: 'idle',
     updateStatus: 'idle',
     updatePasswordStatus: 'idle',
 };
@@ -171,10 +173,9 @@ export const userReducer = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getUserInfoAsync.pending, (state) => {
-                state.status = 'loading';
+                state.signInStatus = 'loading';
             })
             .addCase(getUserInfoAsync.fulfilled, (state, action) => {
-                state.status = 'idle';
                 try {
                     const { log, user } = action.payload
                     if (log == null) throw new Error('invalid fields')
@@ -182,7 +183,8 @@ export const userReducer = createSlice({
                         if (user == null) throw new Error('invalid fields')
                         state.userinfo = user;
                         state.userIsLogIn = true;
-                    }
+                        state.signInStatus = 'idle';
+                    } else state.signInStatus = 'failed';
                 } catch (error) {
                     console.log(error)
                 }
@@ -307,6 +309,7 @@ export const selecUserName = (state: RootState) => state.user.userinfo.fName + "
 export const checkUser = (state: RootState) => state.user.userIsLogIn
 export const checkType = (state: RootState) => state.user.userinfo.type
 export const signUpState = (state: RootState) => state.user.signUpStatus
+export const signInState = (state: RootState) => state.user.signInStatus
 export const updatePasswordState = (state: RootState) => state.user.updatePasswordStatus
 export const selectDefaultRegion = (state: RootState) => state.user.defaultRegion
 export default userReducer.reducer;

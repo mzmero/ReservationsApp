@@ -19,7 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuNav from '@mui/material/Menu';
 import User from '../user/user'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { checkUser, getUserInfoAsync, signUpUser, signUpState, updateSignUpState } from '../../../app/reducers/userReducer'
+import { checkUser, getUserInfoAsync, signUpUser, signUpState, updateSignUpState, signInState } from '../../../app/reducers/userReducer'
 import IconButton from '@mui/material/IconButton'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
@@ -38,9 +38,11 @@ function Menu() {
     const [openAlert, setOpenAlert] = useState(false);
     const [textAlert, setTextAlert] = useState('');
     const [emailErrorSignUp, setEmailErrorSignUp] = useState(false);
+    const [emailErrorSignIn, setEmailErrorSignIn] = useState(false);
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(checkUser)
     const isSignedup = useAppSelector(signUpState)
+    const isSignedin = useAppSelector(signInState)
     const customStyles = {
         overlay: { zIndex: 1000 }
     };
@@ -49,8 +51,10 @@ function Menu() {
             setTextAlert('You have logged in successfully!!')
             setOpenAlert(true)
             openSignInModal(false);
+        } else if (isSignedin === "failed" && modalSignInsOpen) {
+            setEmailErrorSignIn(true)
         }
-    }, [isLoggedIn])
+    }, [isLoggedIn, isSignedin])
     useEffect(() => {
         if (isSignedup === "failed" && modalSignUpModal) {
             setEmailErrorSignUp(true)
@@ -61,6 +65,7 @@ function Menu() {
             openSignUpModal(false);
         }
     }, [isSignedup])
+
     function openSearchModal(bool: boolean) {
         if (bool === false)
             setNavbarindex(1)
@@ -68,8 +73,13 @@ function Menu() {
         setSearchModal(bool);
     }
     function openSignInModal(bool: boolean) {
-        if (bool === false)
+        if (bool === false) {
             setNavbarindex(1)
+            if (emailErrorSignIn)
+                setEmailErrorSignIn(false)
+            if (isSignedin === 'failed')
+                dispatch(updateSignUpState('idle'))
+        }
         else setNavbarindex(0)
         setSignINModal(bool);
     }
@@ -221,7 +231,7 @@ function Menu() {
                         </div>
                         <div className="signModal__content__right__middle">
                             <form onSubmit={handleLogin}>
-                                <TextField required id="login__account" label="Account" name="email" variant="standard" onChange={onChangeLogIn} />
+                                <TextField error={emailErrorSignIn} helperText={emailErrorSignIn == true ? 'Wrong Email or Password' : ''} required id="login__account" label="Account" name="email" variant="standard" onChange={onChangeLogIn} />
                                 <TextField required id="login__password" label="Password" name="password" type="password" variant="standard" onChange={onChangeLogIn} />
                                 <FormGroup>
                                     <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
