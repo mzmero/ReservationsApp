@@ -1,0 +1,21 @@
+.searchresults {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+
+    &__title {
+        border-bottom: .0625rem solid #d8d9db;
+        opacity: 0.9;
+        width: 100%;
+    }
+
+    &__results {
+        width: 100%;
+    }
+
+    &__pages {
+        margin-top: 1rem;
+        //width: 100%;
+    }
+}

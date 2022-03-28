@@ -7,18 +7,26 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import { height, minHeight } from '@mui/system';
 import { Outlet, useNavigate } from 'react-router-dom';
+import Footer from '../../components/footer/footer';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer';
 
 
 function SearchPage() {
     const [searchProp, setSearchProp] = useState('restaurant')
     const [searchvalue, setSearchvalue] = useState('')
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const arrOfRestaurants = useAppSelector(getAllRestaurants)
+    useEffect(() => {
+        if (arrOfRestaurants.length == 0)
+            dispatch(fetchAllRestaurants())
+    }, [])
     function handleInput(e: any) {
         setSearchvalue(e.target.value)
     }
+
     function handleSearch(e: any) {
         e.preventDefault()
         navigate(`/search/${searchvalue}`, { state: { "prop": searchProp } })
@@ -58,6 +66,7 @@ function SearchPage() {
                 </div>
                 <Outlet></Outlet>
             </div>
+            <Footer></Footer>
         </div>
     )
 }

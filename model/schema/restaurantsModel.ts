@@ -1,6 +1,9 @@
 
 const mongoose = require("mongoose");
+interface foodObj {
+    name: string;
 
+}
 const RestaurantsSchema = new mongoose.Schema({
     id: String,
     name: String,
@@ -20,6 +23,10 @@ const RestaurantsSchema = new mongoose.Schema({
         type: String
     }],
     ownerId: String,
+    food: [{
+        name: String,
+        price: Number,
+    }]
 });
 
 const Resteraunts = mongoose.model('restaurants', RestaurantsSchema);

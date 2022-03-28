@@ -36,7 +36,9 @@ function ViewPage() {
         let endIndex = itemsInPage * (page - 1)
         if (pageProps.totalPages > page)
             endIndex = itemsInPage * (page)
-        else endIndex = itemsInPage * (page - 1) + pageProps.numOfItems % itemsInPage
+        else if (pageProps.numOfItems % itemsInPage != 0)
+            endIndex = itemsInPage * (page - 1) + pageProps.numOfItems % itemsInPage
+        else endIndex = itemsInPage * (page)
         setPageProps({ ...pageProps, "start": startIndex, "end": endIndex })
 
     }

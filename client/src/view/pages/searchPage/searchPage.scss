@@ -4,9 +4,9 @@
     &__content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         width: 100%;
+        min-height: 25rem;
 
         &__search {
             margin-top: 3rem;

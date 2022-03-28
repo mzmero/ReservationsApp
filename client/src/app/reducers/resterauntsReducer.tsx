@@ -17,6 +17,12 @@ interface Restaurant {
     description: string;
     subCategory: Array<string>;
     ownerId: string;
+    food: Array<foodObj>;
+
+}
+export interface foodObj {
+    name: string;
+    price: number;
 }
 interface Region {
     region: string;
