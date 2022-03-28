@@ -40,8 +40,8 @@ function RestaurantCard(props: cardProp) {
     return (
 
         <div className="restaurantCard" onClick={navigation}>
-            <div className="reservationcard__image" style={{ backgroundImage: `url(${props.image})` }}></div>
-            <div className="reservationcard__main">
+            <div className="restaurantCard__image" style={{ backgroundImage: `url(${props.image})` }}></div>
+            <div className="restaurantCard__main">
                 <div className="restaurantCard__title">
                     <h3>{props.name}</h3>
                 </div>
