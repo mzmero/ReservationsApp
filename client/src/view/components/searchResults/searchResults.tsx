@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/resterauntsReducer';
+import FoodCard from '../foodCard/foodCard';
 import RestaurantCard from '../restaurantCard/restaurantCard';
 import './searchResults.scss'
 
@@ -79,7 +80,13 @@ export const SearchResults = () => {
             ))}
         </Grid>)
     } else {
-        component = (<div></div>)
+        component = (<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
+            {pageProps.data.slice(pageProps.start, pageProps.end).map((rest: any, index: any) => (
+                <Grid item xs={12} sm={4} md={3} key={rest.id}>
+                    <FoodCard key={rest.id} id={rest.id} name={rest.name} image={rest.image} stars={rest.stars} region={rest.region} city={rest.city} food={rest.food}></FoodCard>
+                </Grid>
+            ))}
+        </Grid>)
     }
     return (
         <div className="searchresults">
