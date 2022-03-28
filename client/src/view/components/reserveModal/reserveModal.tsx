@@ -56,7 +56,7 @@ function ReserveModal(props: details) {
                 onClose={() => props.setOpenModal(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                onClick={(e: any) => (e.preventDefault())}
+                onClick={(e: any) => { e.preventDefault(); e.stopPropagation() }}
                 disableScrollLock={true}
             >
                 <Box sx={style} >

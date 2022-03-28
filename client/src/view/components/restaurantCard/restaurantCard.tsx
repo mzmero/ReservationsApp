@@ -31,7 +31,8 @@ function RestaurantCard(props: cardProp) {
         p: 4,
     };
     function openReserve(e: any) {
-        e.preventDefault();
+        e.preventDefault()
+        e.stopPropagation()
         setOpenModal(true);
     }
     function navigation() {

@@ -160,10 +160,14 @@
 
 @media only screen and (max-width: 800px) {}
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
+
     // .swiper-container {
     //     width: 200px !important;
     // }
+    .exploremain__region {
+        margin-top: 2rem;
+    }
 
     .swiper-button-next,
     .swiper-button-prev {
