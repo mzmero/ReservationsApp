@@ -112,7 +112,7 @@ function Explore() {
                             //centeredSlides={true}
                             centeredSlidesBounds={true}
                             breakpoints={{
-                                320: {
+                                280: {
                                     slidesPerView: 1,
                                     spaceBetween: 10,
                                     slidesPerGroup: 1,

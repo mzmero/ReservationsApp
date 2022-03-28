@@ -25,7 +25,11 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import ScrollIntoView from "../../components/ScrollIntoView/ScrollIntoView";
 
-
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Pagination, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 function Restaurant() {
     const dispatch = useAppDispatch()
@@ -78,7 +82,6 @@ function Restaurant() {
             dispatch(deleteFavorite({ "restId": RestaurantId }))
             setChecked(false)
         }
-
     }
     function openReserve(e: any) {
         e.preventDefault();
@@ -92,9 +95,51 @@ function Restaurant() {
             <div>
                 <Menu></Menu>
                 <div className="rest">
-                    <div className="rest__images" onClick={photoSlider}>
-                        <div className="rest__images__photo" style={{ backgroundImage: `url(${restaurant[0].photos[0]})` }}></div>
-                        <div className="rest__images__photo" style={{ backgroundImage: `url(${restaurant[0].photos[1]})` }}></div>
+                    <div className="rest__images">
+                        <Swiper
+                            slidesPerView={2}
+                            spaceBetween={0}
+                            slidesPerGroup={2}
+                            loop={false}
+                            loopFillGroupWithBlank={false}
+                            pagination={{
+                                clickable: true
+                            }}
+                            navigation={true}
+                            modules={[Pagination, Navigation]}
+                            className="mySwiper"
+                            //centeredSlides={true}
+                            centeredSlidesBounds={true}
+                            breakpoints={{
+                                280: {
+                                    slidesPerView: 1,
+                                    spaceBetween: 10,
+                                    slidesPerGroup: 1,
+
+                                },
+                                600: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20,
+                                    slidesPerGroup: 2
+                                },
+                                // when window width is >= 480px
+                                800: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 30
+                                },
+                                // when window width is >= 640px
+                                1200: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 40
+                                }
+                            }}
+                        >
+                            {restaurant[0].photos.map((rest, index) => {
+                                return (
+                                    <SwiperSlide key={(index + 1) * 100}> <div className="rest__images__photo" style={{ backgroundImage: `url(${rest})` }}></div></SwiperSlide>
+                                )
+                            })}
+                        </Swiper>
                     </div>
                     <div className="rest__main">
                         <div className="rest__main__header">
@@ -149,73 +194,6 @@ function Restaurant() {
 
                 </div >
                 <ReserveModal restaurantID={RestaurantId} openModal={openModal} setOpenModal={setOpenModal} />
-                <Modal
-                    open={openPhoto}
-                    onClose={() => setOpenPhoto(false)}
-                    aria-labelledby="parent-modal-title"
-                    aria-describedby="parent-modal-description"
-                >
-                    <Box sx={{
-                        display: "flex", flexDirection: "column", width: "50%", justifyContent: "center", margin: "auto", position: "absolute", top: "25%", left: "25%"
-                    }}>
-                        <AutoPlaySwipeableViews
-                            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                            index={activeStep}
-                            onChangeIndex={handleStepChange}
-                            enableMouseEvents
-                        >
-                            {restaurant[0].photos.map((step, index) => (
-                                <div key={index}>
-                                    {Math.abs(activeStep - index) <= restaurant[0].photos.length ? (
-                                        <Box
-
-                                            sx={{
-                                                backgroundImage: `url(${step})`,
-                                                height: "400px",
-                                                width: "100%",
-                                                maxHeight: "700px",
-                                                backgroundPosition: "50%",
-                                                backgroundSize: "cover",
-
-                                            }}
-
-
-                                        />
-                                    ) : null}
-                                </div>
-                            ))}
-                        </AutoPlaySwipeableViews>
-                        <MobileStepper
-                            steps={maxSteps}
-                            position="static"
-                            activeStep={activeStep}
-                            nextButton={
-                                <Button
-                                    size="small"
-                                    onClick={handleNext}
-                                    disabled={activeStep === maxSteps - 1}
-                                >
-                                    Next
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowLeft />
-                                    ) : (
-                                        <KeyboardArrowRight />
-                                    )}
-                                </Button>
-                            }
-                            backButton={
-                                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                                    {theme.direction === 'rtl' ? (
-                                        <KeyboardArrowRight />
-                                    ) : (
-                                        <KeyboardArrowLeft />
-                                    )}
-                                    Back
-                                </Button>
-                            }
-                        />
-                    </Box>
-                </Modal>
                 <Footer />
             </div >
         </ScrollIntoView>
