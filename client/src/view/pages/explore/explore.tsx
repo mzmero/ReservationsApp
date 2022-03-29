@@ -136,7 +136,7 @@ function Explore() {
                                 }
                             }}
                         >
-                            {famousRestaurants.map((rest, index) => {
+                            {famousRestaurants.slice(0, 20).map((rest, index) => {
                                 return (
                                     <SwiperSlide key={(index + 1) * 1000}><Card key={rest._id + " " + index} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card></SwiperSlide>
                                 )
