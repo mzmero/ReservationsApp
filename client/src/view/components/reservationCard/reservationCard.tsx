@@ -11,6 +11,7 @@ interface cardProp {
     date: Date;
     restId: string;
     people: number;
+    cancel: boolean;
 }
 
 function ReservationCard(props: cardProp) {
@@ -48,9 +49,14 @@ function ReservationCard(props: cardProp) {
                     <FontAwesomeIcon style={{ color: 'rgb(38, 57, 77)' }} icon={faCalendarDays} />
                     <div className="reservationcard__date__date">{strDate}</div>
                 </div>
-                <div className="reservationcard__cancel">
-                    <Button style={{ backgroundColor: '#2a945b', width: '60%', padding: '0.1rem 0.1rem', whiteSpace: "nowrap" }} fullWidth variant="contained" onClick={CancelReserve}>Cancel</Button>
+                <div className="reservationcard__people">
+                    {props.people == 1 ? props.people + " person" : props.people + " people"}
                 </div>
+                {props.cancel ? (
+                    <div className="reservationcard__cancel">
+                        <Button style={{ backgroundColor: '#2a945b', width: '60%', padding: '0.1rem 0.1rem', whiteSpace: "nowrap" }} fullWidth variant="contained" onClick={CancelReserve}>Cancel</Button>
+                    </div>) : (<></>)
+                }
             </div>
 
         </div>

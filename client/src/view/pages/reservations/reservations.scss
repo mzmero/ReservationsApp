@@ -1,4 +1,4 @@
-.main {
+.reserve {
     display: flex;
     flex-direction: column;
     min-height: 30rem;
@@ -10,20 +10,18 @@
         flex-direction: column;
         width: 85%;
 
-        header {
+        &__title {
+            border-bottom: .0625rem solid #d8d9db;
+            margin-bottom: 1rem;
+
             h2 {
                 opacity: 0.9;
             }
         }
 
         &__card {
-            width: 100%;
-            padding-top: 1rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            align-items: center;
-            gap: 1rem;
+            margin-bottom: 3rem;
         }
+
     }
 }
