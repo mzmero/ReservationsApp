@@ -23,7 +23,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { checkUser } from '../../../app/reducers/userReducer';
-
 function Restaurant() {
     const dispatch = useAppDispatch()
     const restaurants = useAppSelector(getAllRestaurants)

@@ -11,6 +11,8 @@ import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { getFamousRestaurants, fetchFamousRestaurants, getRegions, fetchRegion } from '../../../app/reducers/restaurantsReducer'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Navigation } from "swiper";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import './explore.scss'
 import "swiper/css";
@@ -142,6 +144,7 @@ function Explore() {
                             })}
                         </Swiper>
                     </div>
+                    <div className='exploremain__popular__grid__arrows'><ArrowBackIcon /><span>Swipe</span><ArrowForwardIcon /></div>
                 </div>
                 <div className="exploremain__popular">
                     <header>

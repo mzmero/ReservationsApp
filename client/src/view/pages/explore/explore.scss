@@ -81,6 +81,15 @@
         &__grid {
             margin-top: 1rem;
             align-items: center;
+
+            &__arrows {
+                display: none;
+
+                span {
+                    margin-left: 0.5rem;
+                    margin-right: 0.5rem;
+                }
+            }
         }
 
 
@@ -169,9 +178,18 @@
         margin-top: 2rem;
     }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none !important;
+    .exploremain__popular__grid__arrows {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        color: #2a945b;
+    }
 
+    .mySwiper {
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            display: none !important;
+        }
     }
 }
