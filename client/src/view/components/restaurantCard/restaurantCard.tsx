@@ -36,8 +36,24 @@ function RestaurantCard(props: cardProp) {
         setOpenModal(true);
     }
     function navigation() {
+        const allViews = localStorage.getItem("recent");
+        if (allViews == null) {
+            const jsonArr = JSON.stringify([props]);
+            localStorage.setItem("recent", jsonArr);
+        } else {
+            const parsedArr: Array<any> = JSON.parse(allViews);
+            const finalArray = parsedArr.filter((a: any) => {
+                if (a._id !== props._id)
+                    return a
+            })
+            finalArray.unshift(props)
+            const jsonArr = JSON.stringify(finalArray.slice(-4));
+            localStorage.setItem("recent", jsonArr);
+        }
         navigate(`/Restaurant/${props._id}`)
+
     }
+
     return (
 
         <div className="restaurantCard" onClick={navigation}>

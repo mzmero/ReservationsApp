@@ -20,6 +20,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useNavigate } from 'react-router-dom';
 import { selectDefaultRegion, setUserRegion } from '../../../app/reducers/userReducer';
+import Grid from '@mui/material/Grid';
 
 function Explore() {
     const dispatch = useAppDispatch()
@@ -52,6 +53,26 @@ function Explore() {
     let img = ""
     if (pictureOfRegion.length > 0)
         img = pictureOfRegion[0].url
+    const stringArr = localStorage.getItem("recent")
+    let allviewComp
+    if (stringArr != null) {
+        const recentView: Array<any> = JSON.parse(stringArr);
+        allviewComp = (<div className="exploremain__popular">
+            <header className='exploremain__popular__title'>
+                <h2>Your Recent Views</h2>
+            </header>
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                {recentView.slice(0, 4).map((rest, index) => {
+                    return (<Grid item xs={12} sm={4} md={3} key={index}>
+                        <Card key={rest._id + "s" + index} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                    </Grid>)
+
+                })}
+            </Grid>
+        </div>)
+
+    }
+
     return (
         <div>
             <Navbar></Navbar>
@@ -92,6 +113,7 @@ function Explore() {
                         </div>
                     </div>
                 </div>
+                {allviewComp}
                 <div className="exploremain__popular">
                     <header className='exploremain__popular__title'>
                         <h2>Popular Restaurants in {userRegion}</h2>
