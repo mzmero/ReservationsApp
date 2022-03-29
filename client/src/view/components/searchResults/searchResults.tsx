@@ -1,3 +1,4 @@
+import { faColonSign } from '@fortawesome/free-solid-svg-icons';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
@@ -6,7 +7,7 @@ import { display, width } from '@mui/system';
 import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer';
+import { getAllRestaurants, fetchAllRestaurants, foodObj } from '../../../app/reducers/restaurantsReducer';
 import FoodCard from '../foodCard/foodCard';
 import RestaurantCard from '../restaurantCard/restaurantCard';
 import './searchResults.scss'
@@ -21,7 +22,7 @@ export const SearchResults = () => {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const itemsInPage = 4;
-    const [pageProps, setPageProps] = useState({ totalPages: 1, numOfItems: 0, data: [] as any, start: 0, end: 1, category: "" })
+    const [pageProps, setPageProps] = useState({ totalPages: 1, numOfItems: 0, data: [] as any, start: 0, end: 1, category: "", switcher: true })
     useEffect(() => {
         if (arrOfRestaurants.length == 0)
             dispatch(fetchAllRestaurants())
@@ -43,13 +44,13 @@ export const SearchResults = () => {
     function handleSwitch(e: any) {
         if (e.target.checked) {
             setPageProps({
-                ...pageProps, "data": pageProps.data.sort(function (a: any, b: any) {
+                ...pageProps, switcher: true, "data": pageProps.data.sort(function (a: any, b: any) {
                     return a.food[0].price - b.food[0].price;
                 })
             })
         } else {
             setPageProps({
-                ...pageProps, "data": pageProps.data.sort(function (a: any, b: any) {
+                ...pageProps, "switcher": false, "data": pageProps.data.sort(function (a: any, b: any) {
                     return b.food[0].price - a.food[0].price;
                 })
             })
@@ -68,17 +69,35 @@ export const SearchResults = () => {
                     } else if (prop === "food") {
                         for (let f of r.food) {
                             if (f.name.toLowerCase().indexOf(SearchString.toLowerCase()) >= 0) {
-                                return ({ "id": r._id, "name": r.name, "image": r.image, "booking": r.booking, "region": r.region, "stars": r.stars, "category": r.category, "photos": r.photos, "city": r.city, "open": r.open, "close": r.close, "description": r.description, "subCategory": r.subCategory, "ownerId": r.ownerId, "food": [{ "name": f.name, "price": f.price }] })
+                                return r
+                                //return { "_id": r._id, "name": r.name, "image": r.image, "booking": r.booking, "region": r.region, "stars": r.stars, "category": r.category, "photos": r.photos, "city": r.city, "open": r.open, "close": r.close, "description": r.description, "subCategory": r.subCategory, "ownerId": r.ownerId, "food": [{ "name": f.name, "price": f.price }] }
                             }
                         }
                     }
                 }
             });
+            let dataArr: any = []
             if (prop === "food") {
-                result.sort(function (a, b) {
-                    return a.food[0].price - b.food[0].price;
-                });
-            }
+                result.forEach((r) => {
+                    if (SearchString != null) {
+                        for (let f of r.food) {
+                            if (f.name.toLowerCase().indexOf(SearchString.toLowerCase()) >= 0) {
+                                dataArr.push({ "_id": r._id, "name": r.name, "image": r.image, "booking": r.booking, "region": r.region, "stars": r.stars, "category": r.category, "photos": r.photos, "city": r.city, "open": r.open, "close": r.close, "description": r.description, "subCategory": r.subCategory, "ownerId": r.ownerId, "food": [{ "name": f.name, "price": f.price }] })
+                            }
+                        }
+                    }
+                })
+                if (pageProps.switcher) {
+                    dataArr.sort(function (a: any, b: any) {
+                        return a.food[0].price - b.food[0].price
+                    })
+                } else {
+                    dataArr.sort(function (a: any, b: any) {
+                        return b.food[0].price - a.food[0].price
+                    })
+                }
+
+            } else dataArr = result
             const numOfItems = result.length
             const totalPages = Math.ceil(numOfItems / itemsInPage)
             let start = 0;
@@ -86,7 +105,7 @@ export const SearchResults = () => {
             if (totalPages === 1)
                 end = numOfItems;
             else end = itemsInPage;
-            setPageProps({ "numOfItems": numOfItems, "totalPages": totalPages, "data": result, "start": start, "end": end, "category": prop })
+            setPageProps({ ...pageProps, "numOfItems": numOfItems, "totalPages": totalPages, "data": dataArr, "start": start, "end": end, "category": prop })
         }
     }, [SearchString, arrOfRestaurants, location.state])
 
@@ -111,7 +130,7 @@ export const SearchResults = () => {
         </Grid>)
         switcher = (<FormControlLabel sx={{ display: "flex", width: "100%", marginBottom: "1rem" }}
             control={
-                <Switch defaultChecked={true} onChange={handleSwitch} name="jason" />
+                <Switch checked={pageProps.switcher} onChange={handleSwitch} name="jason" />
             }
             label="sort by low price"
         />)

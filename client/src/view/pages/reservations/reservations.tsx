@@ -29,7 +29,7 @@ function Reservations() {
                 <div className="reserve__content">
                     <div className='reserve__content__card'>
                         <header className="reserve__content__title">
-                            <h2>Your Latest Reservations</h2>
+                            <h2>Your Upcoming Reservations</h2>
                         </header>
                         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             {reservations.map((r, index) => {
