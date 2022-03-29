@@ -68,7 +68,7 @@ export const SearchResults = () => {
                     } else if (prop === "food") {
                         for (let f of r.food) {
                             if (f.name.toLowerCase().indexOf(SearchString.toLowerCase()) >= 0) {
-                                return ({ "id": r.id, "name": r.name, "image": r.image, "booking": r.booking, "region": r.region, "stars": r.stars, "category": r.category, "photos": r.photos, "city": r.city, "open": r.open, "close": r.close, "description": r.description, "subCategory": r.subCategory, "ownerId": r.ownerId, "food": [{ "name": f.name, "price": f.price }] })
+                                return ({ "id": r._id, "name": r.name, "image": r.image, "booking": r.booking, "region": r.region, "stars": r.stars, "category": r.category, "photos": r.photos, "city": r.city, "open": r.open, "close": r.close, "description": r.description, "subCategory": r.subCategory, "ownerId": r.ownerId, "food": [{ "name": f.name, "price": f.price }] })
                             }
                         }
                     }
@@ -96,16 +96,16 @@ export const SearchResults = () => {
         switcher = (<></>)
         component = (<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
             {pageProps.data.slice(pageProps.start, pageProps.end).map((rest: any, index: any) => (
-                <Grid item xs={12} sm={4} md={3} key={rest.id}>
-                    <RestaurantCard key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></RestaurantCard>
+                <Grid item xs={12} sm={4} md={3} key={index * 1000 + index}>
+                    <RestaurantCard key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></RestaurantCard>
                 </Grid>
             ))}
         </Grid>)
     } else {
         component = (<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
             {pageProps.data.slice(pageProps.start, pageProps.end).map((rest: any, index: any) => (
-                <Grid item xs={12} sm={4} md={3} key={rest.id}>
-                    <FoodCard key={rest.id} id={rest.id} name={rest.name} image={rest.image} stars={rest.stars} region={rest.region} city={rest.city} food={rest.food}></FoodCard>
+                <Grid item xs={12} sm={4} md={3} key={index * 10 + index}>
+                    <FoodCard key={rest._id} _id={rest._id} name={rest.name} image={rest.image} stars={rest.stars} region={rest.region} city={rest.city} food={rest.food}></FoodCard>
                 </Grid>
             ))}
         </Grid>)

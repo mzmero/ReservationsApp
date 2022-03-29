@@ -36,13 +36,13 @@ function Restaurant() {
         if (islogIn == true)
             dispatch(fetchUserFavorite())
     }, [islogIn])
-    const [Restaurant, setRestaurant] = useState({ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, category: "", photos: ["/", "/"], city: "", open: "", close: "", description: "", subCategory: [], ownerId: "", food: [{ name: "", price: 0 }] })
+    const [Restaurant, setRestaurant] = useState({ _id: "0", name: "", image: "", booking: 0, region: "", stars: 0, category: "", photos: ["/", "/"], city: "", open: "", close: "", description: "", subCategory: [], ownerId: "", food: [{ name: "", price: 0 }] })
     const { RestaurantId } = useParams();
     const [openModal, setOpenModal] = useState(false);
     const favorites = useAppSelector(getFavorites)
     const [checked, setChecked] = React.useState(false);
     let restaurant = restaurants.filter((rest) => {
-        if (rest.id == RestaurantId)
+        if (rest._id == RestaurantId)
             return rest
     })
     const favorite = favorites.filter((fav) => {

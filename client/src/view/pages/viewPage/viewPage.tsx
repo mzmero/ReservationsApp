@@ -52,8 +52,8 @@ function ViewPage() {
                 <div className='viewpage__content__rest'>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
                         {pageProps.data.slice(pageProps.start, pageProps.end).map((rest: any, index: any) => (
-                            <Grid item xs={12} sm={4} md={3} key={rest.id}>
-                                <RestaurantCard key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></RestaurantCard>
+                            <Grid item xs={12} sm={4} md={3} key={index}>
+                                <RestaurantCard key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></RestaurantCard>
                             </Grid>
                         ))}
                     </Grid>

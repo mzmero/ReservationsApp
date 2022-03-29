@@ -23,8 +23,8 @@ function Explore() {
     const dispatch = useAppDispatch()
     const famousRestaurants = useAppSelector(getFamousRestaurants)
     const arrOfRegions = useAppSelector(getRegions)
-    const [trendingRestaurants, setTrendingRestaurant] = useState([{ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
-    const [seaRestaurants, setSeaRestaurant] = useState([{ id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
+    const [trendingRestaurants, setTrendingRestaurant] = useState([{ _id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
+    const [seaRestaurants, setSeaRestaurant] = useState([{ _id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
     const userRegion = useAppSelector(selectDefaultRegion)
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
@@ -137,7 +137,7 @@ function Explore() {
                         >
                             {famousRestaurants.map((rest, index) => {
                                 return (
-                                    <SwiperSlide key={(index + 1) * 1000}><Card key={rest.id + " " + index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card></SwiperSlide>
+                                    <SwiperSlide key={(index + 1) * 1000}><Card key={rest._id + " " + index} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card></SwiperSlide>
                                 )
                             })}
                         </Swiper>
@@ -150,7 +150,7 @@ function Explore() {
                     </header>
                     <div className="exploremain__popular__grid">
                         {trendingRestaurants.map((rest, index) => {
-                            return <Card key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                            return <Card key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                         })}
                     </div>
                 </div>
@@ -161,7 +161,7 @@ function Explore() {
                     </header>
                     <div className="exploremain__popular__grid">
                         {seaRestaurants.map((rest, index) => {
-                            return <Card key={rest.id} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                            return <Card key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                         })}
                     </div>
                 </div>

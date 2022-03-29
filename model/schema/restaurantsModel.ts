@@ -5,7 +5,6 @@ interface foodObj {
 
 }
 const RestaurantsSchema = new mongoose.Schema({
-    id: String,
     name: String,
     image: String,
     booking: Number,

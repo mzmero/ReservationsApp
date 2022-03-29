@@ -20,7 +20,7 @@ function ReservationCard(props: cardProp) {
     const restaurants = useAppSelector(getAllRestaurants)
     const dispatch = useAppDispatch()
     const restaurant = restaurants.filter((rest, index) => {
-        if (rest.id === props.restId)
+        if (rest._id === props.restId)
             return rest
     })
     function CancelReserve(e: any) {

@@ -20,7 +20,7 @@ router.get('/get-all-owner-restaurants', isUser, async (req, res) => {
         const role = req.role
         if (role === "restaurateur") {
             const restaurant = await Restaurants.find({ "ownerId": ownerId });
-            const filterRestaurants = restaurant.map((a) => { return a.id })
+            const filterRestaurants = restaurant.map((a) => { return a._id })
             const newDate = new Date()
             const nextMonth = new Date(newDate)
             nextMonth.setDate(nextMonth.getDate() + 30)

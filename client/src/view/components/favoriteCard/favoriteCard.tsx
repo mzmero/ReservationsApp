@@ -14,7 +14,7 @@ function FavoriteCard(props: cardProp) {
     const restaurants = useAppSelector(getAllRestaurants)
     const [openModal, setOpenModal] = useState(false);
     const restaurant = restaurants.filter((rest, index) => {
-        if (rest.id == props.restId)
+        if (rest._id == props.restId)
             return rest
     })
     let img = ""

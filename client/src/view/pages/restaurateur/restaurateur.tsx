@@ -29,7 +29,7 @@ function Restaurateur() {
                         <Grid container spacing={{ xs: 2, md: 3 }}>
                             {ownerRestaurants.map((rest, index) => {
                                 return (<Grid item xs={12} sm={6} md={3} key={index}>
-                                    <Card key={index} id={rest.id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
+                                    <Card key={index} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                                 </Grid>)
                             })}
                         </Grid>
