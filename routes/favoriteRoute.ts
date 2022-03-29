@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+import jwt from "jwt-simple"
 import Favorites from '../model/schema/favoritesModel'
 import Users from '../model/schema/userModel'
 import { isUser } from '../controller/userController'

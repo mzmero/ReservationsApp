@@ -31,6 +31,7 @@ export const fetchUserFavorite = createAsyncThunk(
     }
 );
 
+
 export const addFavorite = createAsyncThunk(
     'favorite/addFavorite',
     async (obj: any | undefined, thunkAPI) => {

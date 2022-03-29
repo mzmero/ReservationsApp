@@ -8,14 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import ReserveModal from '../../components/reserveModal/reserveModal'
-import Modal from '@mui/material/Modal'
-import Box from '@mui/material/Box';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import { useTheme } from '@mui/material/styles';
-import MobileStepper from '@mui/material/MobileStepper';
 import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer'
 import { addFavorite, fetchUserFavorite, deleteFavorite, getFavorites } from '../../../app/reducers/favoriteReducer'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
@@ -30,22 +22,23 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { checkUser } from '../../../app/reducers/userReducer';
 
 function Restaurant() {
     const dispatch = useAppDispatch()
+    const restaurants = useAppSelector(getAllRestaurants)
+    const islogIn = useAppSelector(checkUser)
     useEffect(() => {
-        dispatch(fetchAllRestaurants())
-        dispatch(fetchUserFavorite())
+        if (restaurants.length == 0)
+            dispatch(fetchAllRestaurants())
     }, []);
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = 2;
+    useEffect(() => {
+        if (islogIn == true)
+            dispatch(fetchUserFavorite())
+    }, [islogIn])
     const [Restaurant, setRestaurant] = useState({ id: "0", name: "", image: "", booking: 0, region: "", stars: 0, category: "", photos: ["/", "/"], city: "", open: "", close: "", description: "", subCategory: [], ownerId: "", food: [{ name: "", price: 0 }] })
     const { RestaurantId } = useParams();
     const [openModal, setOpenModal] = useState(false);
-    const [openPhoto, setOpenPhoto] = useState(false);
-    const restaurants = useAppSelector(getAllRestaurants)
     const favorites = useAppSelector(getFavorites)
     const [checked, setChecked] = React.useState(false);
     let restaurant = restaurants.filter((rest) => {
@@ -64,31 +57,22 @@ function Restaurant() {
     if (favorite.length == 0 && checked === true) {
         setChecked(false)
     }
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    const handleStepChange = (step: any) => {
-        setActiveStep(step);
-    };
     function isFavorite(e: any) {
-        if (e.target.checked) {
-            dispatch(addFavorite({ 'restId': RestaurantId }))
-        }
-        else {
-            dispatch(deleteFavorite({ "restId": RestaurantId }))
-            setChecked(false)
+        if (islogIn) {
+            if (e.target.checked) {
+                dispatch(addFavorite({ 'restId': RestaurantId }))
+            }
+            else {
+                dispatch(deleteFavorite({ "restId": RestaurantId }))
+                setChecked(false)
+            }
+        } else {
+
         }
     }
     function openReserve(e: any) {
         e.preventDefault();
         setOpenModal(true);
-    }
-    function photoSlider() {
-        setOpenPhoto(true);
     }
     return (
         <ScrollIntoView>
@@ -107,7 +91,7 @@ function Restaurant() {
                             }}
                             navigation={true}
                             modules={[Pagination, Navigation]}
-                            className="mySwiper"
+                            className="mySwiper_rest"
                             //centeredSlides={true}
                             centeredSlidesBounds={true}
                             breakpoints={{
@@ -122,12 +106,10 @@ function Restaurant() {
                                     spaceBetween: 20,
                                     slidesPerGroup: 2
                                 },
-                                // when window width is >= 480px
                                 800: {
                                     slidesPerView: 2,
                                     spaceBetween: 30
                                 },
-                                // when window width is >= 640px
                                 1200: {
                                     slidesPerView: 2,
                                     spaceBetween: 40
