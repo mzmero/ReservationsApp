@@ -175,7 +175,7 @@ function Restaurant() {
                     </div>
 
                 </div >
-                <ReserveModal restaurantID={RestaurantId} openModal={openModal} setOpenModal={setOpenModal} />
+                <ReserveModal restaurantID={RestaurantId} image={restaurant[0].image} name={restaurant[0].name} openModal={openModal} setOpenModal={setOpenModal} />
                 <Footer />
             </div >
         </ScrollIntoView>

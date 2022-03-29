@@ -19,6 +19,8 @@ import { TextField } from '@mui/material';
 
 interface details {
     restaurantID: string | undefined;
+    image: string;
+    name: string;
     openModal: any;
     setOpenModal: any;
 }
@@ -43,6 +45,8 @@ function ReserveModal(props: details) {
             restId: props.restaurantID,
             people: people,
             date: selectedDate,
+            name: props.name,
+            image: props.image,
         }))
         props.setOpenModal(false)
     }

@@ -12,6 +12,8 @@ interface cardProp {
     restId: string;
     people: number;
     cancel: boolean;
+    image: string;
+    name: string;
 }
 
 function ReservationCard(props: cardProp) {

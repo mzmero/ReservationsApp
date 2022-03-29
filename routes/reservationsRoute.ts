@@ -20,11 +20,11 @@ router.get('/get-user-reservations', isUser, async (req, res) => {
 router.post('/add-user-reservation', isUser, async (req, res) => {
     try {
         const userId = req.userId;
-        const { restId, people, date } = req.body
-        if (!userId || !restId || !people || !date) throw "invalid fields"
+        const { restId, people, date, image, name } = req.body
+        if (!userId || !restId || !people || !date || !image || !name) throw "invalid fields"
         const check = await Reservations.find({ "userId": userId, "restId": restId, "date": date })
         if (check.length == 0) {
-            const userReservation = new Reservations({ "userId": userId, "restId": restId, "people": people, "date": date })
+            const userReservation = new Reservations({ "userId": userId, "restId": restId, "people": people, "date": date, "image": image, "name": name })
             await userReservation.save()
             const reservation = await Reservations.find({ "userId": userId })
             res.send({ "add": true, "reservations": reservation })

@@ -4,6 +4,8 @@ const ReservationsSchema = mongoose.Schema({
     restId: String,
     userId: String,
     people: Number,
+    image: String,
+    name: String,
 });
 
 //the collection

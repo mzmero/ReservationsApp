@@ -36,7 +36,7 @@ function Reservations() {
                                 const date = new Date()
                                 if (new Date(r.date) > date)
                                     return (<Grid item xs={12} sm={4} md={3} key={index}>
-                                        <ReservationCard key={r._id} restId={r.restId} id={r._id} date={r.date} people={r.people} cancel={true}></ReservationCard>
+                                        <ReservationCard key={r._id} restId={r.restId} id={r._id} date={r.date} people={r.people} image={r.image} name={r.name} cancel={true}></ReservationCard>
                                     </Grid>)
                             })}
                         </Grid>
@@ -50,7 +50,7 @@ function Reservations() {
                                 const date = new Date()
                                 if (new Date(r.date) <= date) {
                                     return (<Grid item xs={12} sm={4} md={3} key={index}>
-                                        <ReservationCard key={r._id} restId={r.restId} id={r._id} date={r.date} people={r.people} cancel={false}></ReservationCard>
+                                        <ReservationCard key={r._id} restId={r.restId} id={r._id} date={r.date} people={r.people} image={r.image} name={r.name} cancel={false}></ReservationCard>
                                     </Grid>)
                                 }
                             })}

@@ -8,6 +8,8 @@ interface Reservation {
     restId: string;
     userId: string;
     people: number;
+    image: string;
+    name: string;
 }
 
 
@@ -55,9 +57,9 @@ export const AddReservation = createAsyncThunk(
     'reservation/AddReservation',
     async (Reserve: any, thunkAPI) => {
         try {
-            const { restId, date, people } = Reserve
-            if (!restId || !date || !people) throw new Error('invalid fields')
-            const response = await axios.post('/reservations/add-user-reservation', { "restId": restId, "date": date, "people": people })
+            const { restId, date, people, name, image } = Reserve
+            if (!restId || !date || !people || !name || !image) throw new Error('invalid fields')
+            const response = await axios.post('/reservations/add-user-reservation', { "restId": restId, "date": date, "people": people, "image": image, "name": name })
             const data: any = response.data
             return data
         } catch (e: any) {

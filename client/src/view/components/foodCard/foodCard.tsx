@@ -19,6 +19,11 @@ interface cardProp {
 function FoodCard(props: cardProp) {
     const restaurants = useAppSelector(getAllRestaurants)
     const [openModal, setOpenModal] = useState(false);
+    function openReserve(e: any) {
+        e.preventDefault()
+        e.stopPropagation()
+        setOpenModal(true);
+    }
     return (
         <Link to={`/Restaurant/${props.id}`}>
             <div className="foodCard">
@@ -35,10 +40,10 @@ function FoodCard(props: cardProp) {
                         <span>{props.food[0].price + "$"}</span>
                     </div>
                     <div className="foodCard__reserve">
-                        <Button style={{ backgroundColor: '#2a945b', width: '60%', padding: '0.1rem 0.1rem', whiteSpace: "nowrap" }} variant="contained" >Reserve Now</Button>
+                        <Button style={{ backgroundColor: '#2a945b', width: '60%', padding: '0.1rem 0.1rem', whiteSpace: "nowrap" }} variant="contained" onClick={openReserve} >Reserve Now</Button>
                     </div>
                 </div>
-                <ReserveModal restaurantID={props.id} openModal={openModal} setOpenModal={setOpenModal} />
+                <ReserveModal restaurantID={props.id} image={props.image} name={props.name} openModal={openModal} setOpenModal={setOpenModal} />
             </div>
         </Link >
     )
