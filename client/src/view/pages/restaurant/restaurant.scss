@@ -145,6 +145,31 @@
                 }
             }
         }
+
+        &__review {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+
+            &__title {
+                font-size: 2rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+            }
+
+            &__comment {
+                margin-top: 2rem;
+                display: flex;
+                align-items: center;
+            }
+
+            &__allreview {
+                display: flex;
+                flex-direction: column;
+                margin-top: 1rem;
+            }
+        }
     }
 }
 

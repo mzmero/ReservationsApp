@@ -3,6 +3,7 @@ const router = express.Router();
 import Restaurants from '../model/schema/restaurantsModel'
 import Regions from '../model/schema/regionModel'
 import Reservations from '../model/schema/reservationsmModel';
+import Reviews from '../model/schema/reviewModel'
 import { isUser } from '../controller/userController'
 
 router.get('/get-all-restaurants', async (req, res) => {
@@ -51,11 +52,35 @@ router.post('/get-famous-restaurants', async (req, res) => {
     }
 
 })
+router.post('/post-review', isUser, async (req, res) => {
+    try {
+        const { comment, stars, name, restId } = req.body
+        const userId = req.userId
+        if (!comment || !stars || !name) throw "invalid fields"
+        const date = new Date()
+        const review = new Reviews({ "date": date, "comment": comment, "stars": stars, "name": name, "userId": userId, "restId": restId });
+        await review.save()
+        res.send({ reviews: review })
+    } catch (error) {
+        res.send({ error });
+    }
+
+})
 
 router.get('/get-regions', async (req, res) => {
     try {
         const regions = await Regions.find({});
         res.send({ regions })
+    } catch (error) {
+        res.send({ error });
+    }
+
+})
+router.post('/get-previews', async (req, res) => {
+    try {
+        const { restId } = req.body
+        const reviews = await Reviews.find({ "restId": restId });
+        res.send({ reviews })
     } catch (error) {
         res.send({ error });
     }

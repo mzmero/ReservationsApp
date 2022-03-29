@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import ReserveModal from '../../components/reserveModal/reserveModal'
-import { getAllRestaurants, fetchAllRestaurants } from '../../../app/reducers/restaurantsReducer'
+import { getAllRestaurants, fetchAllRestaurants, postReview, getReviews, getAllReviews } from '../../../app/reducers/restaurantsReducer'
 import { addFavorite, fetchUserFavorite, deleteFavorite, getFavorites } from '../../../app/reducers/favoriteReducer'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import Chip from '@mui/material/Chip';
@@ -16,27 +16,34 @@ import Map from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import ScrollIntoView from "../../components/ScrollIntoView/ScrollIntoView";
-
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { checkUser } from '../../../app/reducers/userReducer';
+import { checkUser, selecUserName } from '../../../app/reducers/userReducer';
+import TextField from '@mui/material/TextField';
+import Rating from '@mui/material/Rating';
+import Review from '../../components/review/review'
+
 function Restaurant() {
     const dispatch = useAppDispatch()
+    const { RestaurantId } = useParams();
     const restaurants = useAppSelector(getAllRestaurants)
+    const allReviews = useAppSelector(getAllReviews)
     const islogIn = useAppSelector(checkUser)
+    const userName = useAppSelector(selecUserName)
     useEffect(() => {
         if (restaurants.length == 0)
             dispatch(fetchAllRestaurants())
+        dispatch(getReviews({ "restId": RestaurantId }))
     }, []);
     useEffect(() => {
         if (islogIn == true)
             dispatch(fetchUserFavorite())
     }, [islogIn])
     const [Restaurant, setRestaurant] = useState({ _id: "0", name: "", image: "", booking: 0, region: "", stars: 0, category: "", photos: ["/", "/"], city: "", open: "", close: "", description: "", subCategory: [], ownerId: "", food: [{ name: "", price: 0 }] })
-    const { RestaurantId } = useParams();
+    const [reviewProps, setReviewProps] = useState({ "comment": "", "stars": 0 })
     const [openModal, setOpenModal] = useState(false);
     const favorites = useAppSelector(getFavorites)
     const [checked, setChecked] = React.useState(false);
@@ -72,6 +79,13 @@ function Restaurant() {
     function openReserve(e: any) {
         e.preventDefault();
         setOpenModal(true);
+    }
+    function handleCommentChange(e: any) {
+        setReviewProps({ ...reviewProps, "comment": e.target.value })
+    }
+    function handleReview() {
+        if (islogIn)
+            dispatch(postReview({ "comment": reviewProps.comment, "stars": reviewProps.stars, "name": userName, "restId": RestaurantId }))
     }
     return (
         <ScrollIntoView>
@@ -169,6 +183,41 @@ function Restaurant() {
                                     style={{ width: "50vw", height: 400, minWidth: "22rem" }}
                                     mapStyle="https://demotiles.maplibre.org/style.json"
                                 />
+                            </div>
+                        </div>
+                        <div className="rest__main__review">
+                            <div className="rest__main__review__title">
+                                What People are Saying
+                            </div>
+                            <div className="rest__main__review__comment">
+                                <TextField fullWidth
+                                    id="outlined-multiline-flexible"
+                                    label="Write a Review..."
+                                    multiline
+                                    maxRows={4}
+                                    sx={{ maxWidth: "30rem" }}
+                                    value={reviewProps.comment}
+                                    onChange={handleCommentChange}
+                                />
+                                <Rating
+                                    name="simple-controlled"
+                                    value={reviewProps.stars}
+                                    sx={{ marginLeft: "1rem" }}
+                                    onChange={(event, newValue) => {
+                                        if (newValue != null)
+                                            setReviewProps({ ...reviewProps, "stars": newValue });
+                                    }}
+                                />
+                            </div>
+                            <div className="rest__main__review__comment">
+                                <Button fullWidth style={{ maxWidth: "10rem" }} variant="contained" onClick={handleReview} >Post</Button>
+                            </div>
+                            <div className="rest__main__review__allreview">
+                                {allReviews.map((review, index) => {
+                                    return (
+                                        <Review key={review._id} _id={review._id} name={review.name} date={review.date} userId={review.userId} comment={review.comment} restId={review.restId} stars={review.stars}></Review>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

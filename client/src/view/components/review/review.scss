@@ -1,0 +1,32 @@
+.review {
+    display: flex;
+    border-bottom: .0625rem solid #d8d9db;
+    margin-top: 0.5rem;
+
+    &__left {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+
+        &__top {
+            display: flex;
+            align-items: center;
+
+            &__date {
+                font-size: 12px;
+                margin-left: 0.4rem;
+            }
+        }
+
+        &__bottom {
+            display: flex;
+            padding: 1rem;
+        }
+    }
+}

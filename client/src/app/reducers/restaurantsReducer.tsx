@@ -32,12 +32,22 @@ interface dateObjP {
     date: string;
     restId: string;
 }
+interface Review {
+    comment: string;
+    name: string;
+    stars: number;
+    date: Date;
+    userId: string,
+    restId: string,
+    _id: string;
+}
 interface Restaurants {
     arrOfRestaurants: Array<Restaurant>;
     ownerArrOfRestaurants: Array<Restaurant>;
     arrOfFamousRestaurants: Array<Restaurant>;
     arrOfOwnerReservations: Array<dateObjP>;
-    arrOfRegions: Array<Region>
+    arrOfReviews: Array<Review>;
+    arrOfRegions: Array<Region>;
     status: 'idle' | 'loading' | 'failed';
 }
 
@@ -46,6 +56,7 @@ const initialState: Restaurants = {
     ownerArrOfRestaurants: [],
     arrOfFamousRestaurants: [],
     arrOfOwnerReservations: [],
+    arrOfReviews: [],
     arrOfRegions: [],
     status: 'idle',
 }
@@ -112,6 +123,42 @@ export const fetchRegion = createAsyncThunk(
 
     }
 );
+
+export const getReviews = createAsyncThunk(
+    'getReviews',
+    async (review: any) => {
+        try {
+            const { restId } = review
+            if (!restId) throw "invalid fields"
+            const response = await axios.post('/restaurants/get-previews', { "restId": restId })
+            const data: any = response.data
+            const { reviews } = data;
+            return reviews
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+);
+
+
+export const postReview = createAsyncThunk(
+    'postReview',
+    async (review: any) => {
+        try {
+            const { comment, stars, name, restId } = review
+            if (!comment || !stars || !name || !restId) throw "invalid fields"
+            const response = await axios.post('/restaurants/post-review', { "comment": comment, "stars": stars, "name": name, "restId": restId })
+            const data: any = response.data
+            const { reviews } = data;
+            return reviews
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+);
+
 export const restaurantReducer = createSlice({
     name: 'restaurant',
     initialState,
@@ -154,6 +201,21 @@ export const restaurantReducer = createSlice({
                     console.log(error.message)
                 }
             })
+            .addCase(postReview.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(postReview.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.arrOfReviews = [...state.arrOfReviews, action.payload]
+            })
+            .addCase(getReviews.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getReviews.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.arrOfReviews = action.payload;
+                console.log(state.arrOfReviews)
+            })
 
     },
 })
@@ -166,4 +228,5 @@ export const getFamousRestaurants = (state: RootState) => state.restaurant.arrOf
 export const getOwnerRestaurants = (state: RootState) => state.restaurant.ownerArrOfRestaurants
 export const getOwnerReserveData = (state: RootState) => state.restaurant.arrOfOwnerReservations
 export const getRegions = (state: RootState) => state.restaurant.arrOfRegions
+export const getAllReviews = (state: RootState) => state.restaurant.arrOfReviews
 export default restaurantReducer.reducer;
