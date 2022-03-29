@@ -1,0 +1,27 @@
+.favorite {
+    display: flex;
+    flex-direction: column;
+    min-height: 30rem;
+    width: 100%;
+    align-items: center;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+
+        &__title {
+            border-bottom: .0625rem solid #d8d9db;
+            margin-bottom: 1rem;
+
+            h2 {
+                opacity: 0.9;
+            }
+        }
+
+        &__card {
+            margin-bottom: 3rem;
+        }
+
+    }
+}

@@ -24,18 +24,20 @@ function Favorite() {
     return (
         <div>
             <Navbar></Navbar>
-            <div className="main">
-                <div className="main__content">
-                    <header>
+            <div className="favorite">
+                <div className="favorite__content">
+                    <header className="favorite__content__title">
                         <h2>Your Favorites</h2>
                     </header>
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {favorites.map((r, index) => {
-                            return (<Grid item xs={12} sm={4} md={3} key={index}>
-                                <FavoriteCard key={r._id} restId={r.restId} />
-                            </Grid>)
-                        })}
-                    </Grid>
+                    <div className="favorite__content__card">
+                        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                            {favorites.map((r, index) => {
+                                return (<Grid item xs={12} sm={4} md={3} key={index}>
+                                    <FavoriteCard key={r._id} restId={r.restId} />
+                                </Grid>)
+                            })}
+                        </Grid>
+                    </div>
                 </div>
 
             </div>
