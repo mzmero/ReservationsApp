@@ -13,9 +13,16 @@
         &__title {
             border-bottom: .0625rem solid #d8d9db;
             margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
             h2 {
                 opacity: 0.9;
+            }
+
+            h4 {
+                color: #2a945b;
             }
         }
 

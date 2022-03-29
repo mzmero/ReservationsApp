@@ -47,7 +47,7 @@ function ViewPage() {
             <Navbar></Navbar>
             <div className='viewpage__content'>
                 <div className='viewpage__content__title'>
-                    <h2>Reserve At The {pageProps.title} Restaurants</h2>
+                    <h2>{pageProps.title}</h2>
                 </div>
                 <div className='viewpage__content__rest'>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>

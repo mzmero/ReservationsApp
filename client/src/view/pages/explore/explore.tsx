@@ -26,7 +26,6 @@ function Explore() {
     const famousRestaurants = useAppSelector(getFamousRestaurants)
     const arrOfRegions = useAppSelector(getRegions)
     const [trendingRestaurants, setTrendingRestaurant] = useState([{ _id: "0", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
-    const [seaRestaurants, setSeaRestaurant] = useState([{ _id: "-1", name: "", image: "", booking: 0, region: "", stars: 0, city: "" }]);
     const userRegion = useAppSelector(selectDefaultRegion)
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
@@ -94,9 +93,9 @@ function Explore() {
                     </div>
                 </div>
                 <div className="exploremain__popular">
-                    <header>
+                    <header className='exploremain__popular__title'>
                         <h2>Popular Restaurants in {userRegion}</h2>
-                        <div className="exploremain__popular__view" onClick={() => { navigate('/viewAll', { state: { "data": famousRestaurants, "title": "famous" } }) }}>View All</div>
+                        <h4 onClick={() => { navigate('/viewAll', { state: { "data": famousRestaurants, "title": "Check Popular Restaurants in Your Region" } }) }}>View All</h4>
                     </header>
                     <div className="exploremain__popular__grid">
                         <Swiper
@@ -147,23 +146,12 @@ function Explore() {
                     <div className='exploremain__popular__grid__arrows'><ArrowBackIcon /><span>Swipe</span><ArrowForwardIcon /></div>
                 </div>
                 <div className="exploremain__popular">
-                    <header>
+                    <header className='exploremain__popular__title'>
                         <h2>Trending Restaurants in {userRegion}</h2>
-                        <div className="exploremain__popular__view" onClick={() => { navigate('/viewAll', { state: { "data": trendingRestaurants, "title": "trending" } }) }}>View All</div>
+                        <h4 onClick={() => { navigate('/viewAll', { state: { "data": trendingRestaurants, "title": "Check Today Current Trending Restaurants" } }) }}>View All</h4>
                     </header>
                     <div className="exploremain__popular__grid">
                         {trendingRestaurants.map((rest, index) => {
-                            return <Card key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
-                        })}
-                    </div>
-                </div>
-                <div className="exploremain__popular">
-                    <header>
-                        <h2>SeaFood Restaurants in {userRegion}</h2>
-                        <div className="exploremain__popular__view">View All</div>
-                    </header>
-                    <div className="exploremain__popular__grid">
-                        {seaRestaurants.map((rest, index) => {
                             return <Card key={rest._id} _id={rest._id} name={rest.name} image={rest.image} booking={rest.booking} stars={rest.stars} region={rest.region} city={rest.city}></Card>
                         })}
                     </div>
